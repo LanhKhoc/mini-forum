@@ -1,0 +1,9 @@
+.o-jumbotron {
+  padding: 7px 15px;
+  border-radius: 10px;
+
+  &--warning {
+    background-color: lighten($color: palette(warning), $amount: 15);
+    border: 1px solid palette(warning);
+  }
+}

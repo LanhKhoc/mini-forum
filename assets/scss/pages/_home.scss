@@ -1,0 +1,23 @@
+.p-home-new-post-title {
+  span {
+    margin-left: 10px;
+  }
+}
+
+.p-home-new-post {
+  width: 80%;
+
+  > li {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    > .svg-inline--fa { font-size: 12px; margin-right: 7px; }
+    &::before {
+      display: none;
+      font-family: "Font Awesome 5 Solid";
+      font-weight: 900;
+      content: "\f144";
+    }
+  }
+}

@@ -1,0 +1,28 @@
+.c-topic {
+  padding-top: 5px;
+
+  & + & {
+    border-top: 1px dashed palette(grey);
+  }
+
+  &__icon {
+    font-size: 36px;
+  }
+
+  &__title {
+    margin: 0;
+    margin-bottom: 5px;
+  }
+
+  &__newest {
+    @include truncate(80%);
+
+    > .svg-inline--fa { margin-right: 5px; }
+    &::before {
+      display: none;
+      font-family: "Font Awesome 5 Solid";
+      font-weight: 900;
+      content: "\f02d";
+    }
+  }
+}

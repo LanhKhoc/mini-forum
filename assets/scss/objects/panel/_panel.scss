@@ -1,0 +1,43 @@
+.o-panel {
+  $block: &;
+
+  &__heading {
+    border-radius: 7px 7px 0px 0px;
+    padding: 7px 10px;
+  }
+
+  &__title {
+    padding: 3px;
+    background-color: palette(white, xx-dark);
+  }
+
+  &__content {
+    border: 1px solid palette(grey, xx-light);
+
+    &--no-border {
+      border: none;
+    }
+  }
+
+  &__footer {
+    padding: 7px;
+    border-radius: 0 0 7px 7px;
+  }
+
+  &--dark {
+    #{$block}__heading {
+      background-color: palette(black, light);
+      color: palette(white);
+    }
+  }
+
+  &--primary {
+    #{$block}__heading {
+      background-color: palette(primary);
+      color: palette(white);
+    }
+    #{$block}__footer {
+      background-color: palette(primary);
+    }
+  }
+}

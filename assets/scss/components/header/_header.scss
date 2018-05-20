@@ -1,0 +1,13 @@
+.c-header {
+  background: #7d7d7d linear-gradient(to bottom,rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%) !important;
+  position: relative;
+
+  &__logo {
+    margin-bottom: 5px;
+    margin-top: 70px;
+    padding: 0 15px;
+  }
+    &__logo-img {
+      width: 15%;
+    }
+}

@@ -1,0 +1,35 @@
+.c-post {
+  padding-top: 5px;
+  margin-bottom: 3px;
+
+  & + & {
+    border-top: 1px dashed palette(grey);
+    padding-top: 8px;
+  }
+
+  &__icon {
+    font-size: 40px;
+  }
+
+  &__title {
+    margin: 0;
+    margin-bottom: 5px;
+
+    > .svg-inline--fa { margin-right: 10px; }
+    &::before {
+      display: none;
+      font-family: "Font Awesome 5 Solid";
+      font-weight: 900;
+      content: "\f15c";
+    }
+  }
+
+  &__response {
+    background-color: palette(white, x-dark);
+    padding: 3px 7px;
+  }
+
+  &__newest {
+    @include truncate(100%);
+  }
+}

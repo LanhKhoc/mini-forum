@@ -1,0 +1,13 @@
+.c-login-bar {
+  background: #299fc2;
+  padding: 7px 15px;
+
+  &__form-item {
+    line-height: 34px;
+    letter-spacing: 1px;
+  }
+
+  &__form-icon {
+    > img { margin: 0 3px; height: 30px; }
+  }
+}

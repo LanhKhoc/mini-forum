@@ -1,0 +1,36 @@
+.o-list-vert {
+  $block: &;
+
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+
+  &__item {
+    // border-bottom: 1px solid palette(black, xx-light);
+  }
+    &__link {
+      display: block;
+      line-height: 34px;
+      padding: 0 10px;
+      text-decoration: none !important;
+    }
+
+  &--circle {
+    list-style-type: circle;
+  }
+
+  &.t-danger {
+    #{$block}__link {
+      font-weight: bolder;
+      color: palette(danger);
+
+      &:hover {
+        color: darken($color: palette(danger), $amount: 30);
+      }
+    }
+
+    #{$block}__link:hover {
+        // color: darken($color: palette(danger), $amount: 0.5);
+    }
+  }
+}

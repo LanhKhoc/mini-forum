@@ -1,0 +1,18 @@
+.o-breadcum {
+  @include clearfix();
+
+  &__home, &__item {
+    float: left;
+    margin-right: 10px;
+
+    > .svg-inline--fa { margin-right: 10px; }
+    &::before {
+      display: none;
+      font-family: "Font Awesome 5 Solid";
+      font-weight: 900;
+    }
+  }
+
+  &__home::before { content: "\f015"; }
+  &__item::before { content: "\f054"; }
+}
