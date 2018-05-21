@@ -22,7 +22,8 @@ $_CONFIG = array(
 // GENERAL SETTINGS
 
     'disabled' => false,
-    'uploadURL' => "upload/test",
+    // 'uploadURL' => "upload/" . $_SESSION['user_info']['id'],
+    'uploadURL' => "upload/",
     'uploadDir' => "",
     'theme' => "default",
 

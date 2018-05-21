@@ -17,6 +17,14 @@ class register_controller extends vendor_controller {
     unset($_SESSION['register_error']);
     unset($_SESSION['register_remember']);
 
+    // NOTE: For login
+    if (empty($_SESSION['user_info'])) {
+      $this->error = isset($_SESSION['error']) ? $_SESSION['error'] : '';
+      $this->remember = isset($_SESSION['remember']) ? $_SESSION['remember'] : '';
+      unset($_SESSION['error']);
+      unset($_SESSION['remember']);
+    }
+
     $this->setProperty('register_error', $error);
     $this->setProperty('register_remember', $remember);
     $this->view();
@@ -24,10 +32,7 @@ class register_controller extends vendor_controller {
 
   public function store() {
     if ($_SERVER['REQUEST_METHOD'] == 'GET') die();
-    if (vendor_auth_controller::checkAuth() == true) {
-      header('Location: ' . vendor_url_util::makeURL(['controller' => 'home']));
-      die();
-    }
+    if (vendor_auth_controller::checkAuth() == true) { die(); }
 
     $service = new register_service();
     $result = $service->store([
