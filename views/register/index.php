@@ -8,7 +8,7 @@
 
 <section class="mt-4 mb-5">
   <div class="container">
-    <form action="">
+    <form method="POST" action="<?= vendor_url_util::makeURL(['controller' => 'register', 'action' => 'store']) ?>">
       <div class="o-panel o-panel--dark">
         <div class="o-panel__heading">
           Đăng Ký EdocCode - Chia sẻ kiến thức và công nghệ máy tính
@@ -19,10 +19,14 @@
               <label for="">Thành viên:</label>
             </div>
             <div class="col-4">
-              <input type="text" class="form-control" />
-              <small class="form-text text-muted">
-                Xin hãy điền tên mà bạn thích được hiển thị trên diễn đàn.
-              </small>
+              <input type="text" value="<?= $this->register_remember['username'] ?>" name="username" class="form-control" />
+              <?php if ($this->register_error['username']) { ?>
+                <small class="form-text text-danger"><?= $this->register_error['username'] ?></small>
+              <?php } else { ?>
+                <small class="form-text text-muted">
+                  Xin hãy điền tên mà bạn thích được hiển thị trên diễn đàn.
+                </small>
+              <?php } ?>
             </div>
           </div>
 
@@ -31,12 +35,12 @@
               <label for="">Mật mã:</label>
             </div>
             <div class="col-4">
-              <input type="text" class="form-control" />
-              <small class="form-text text-muted"></small>
+              <input type="password" name="password" class="form-control" />
+              <small class="form-text text-danger"><?= $this->register_error['password'] ?></small>
             </div>
           </div>
 
-          <div class="form-group row">
+          <!-- <div class="form-group row">
             <div class="col-3">
               <label for="">Xác nhận mật mã:</label>
             </div>
@@ -44,15 +48,46 @@
               <input type="text" class="form-control" />
               <small class="form-text text-muted"></small>
             </div>
-          </div>
+          </div> -->
 
           <div class="form-group row">
             <div class="col-3">
               <label for="">Ðịa Chỉ Email:</label>
             </div>
             <div class="col-4">
-              <input type="text" class="form-control" />
-              <small class="form-text text-muted"></small>
+              <input type="text" value="<?= $this->register_remember['email'] ?>" name="email" class="form-control" />
+              <small class="form-text text-danger"><?= $this->register_error['email'] ?></small>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="col-3">
+              <label for="">Fullname</label>
+            </div>
+            <div class="col-4">
+              <input type="text" value="<?= $this->register_remember['fullname'] ?>" name="fullname" class="form-control" />
+              <small class="form-text text-danger"><?= $this->register_error['fullname'] ?></small>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="col-3">
+              <label for="">Giới tính: </label>
+            </div>
+            <div class="col-9">
+              <div class="form-check">
+                <label class="form-check-label">
+                  <input type="radio" class="form-check-input" name="gender" value="Nam" checked>
+                  Nam
+                </label>
+
+                <label class="form-check-label ml-3">
+                  <input type="radio" class="form-check-input" name="gender" value="Nữ" >
+                  Nữ
+                </label>
+
+                <small class="form-text text-danger"><?= $this->register_error['gender'] ?></small>
+              </div>
             </div>
           </div>
         </div>
@@ -66,7 +101,7 @@
           <p>Bạn cần đọc và chấp nhận đồng ý theo Điều Khoản Đăng Ký Diễn Đàn khi đăng ký</p>
           <div class="p-register-term">
             <p><strong>Đăng ký diễn đàn này hoàn toàn MIỄN PHÍ</strong></p>
-            <p><strong>Quy định Diễn Đàn [E-C]</strong></p>
+            <p><strong>Quy định Diễn Đàn EdocCode</strong></p>
             <p>Xin hãy dành vài phút để đọc các nội quy và các quy định của diễn đàn.</p>
             <p class="text-danger">
               1) Đọc kỹ "Điều khoản và Quy Định của Diễn Đàn". <br />
@@ -79,9 +114,10 @@
 
           <div class="form-check mt-3">
               <label class="form-check-label">
-                <input type="checkbox" class="form-check-input">
+                <input type="checkbox" name="confirm" class="form-check-input" />
                 <strong>Tôi đã đọc, và đồng ý tuân theo điều khoản đăng ký của EdocCode - Chia sẻ kiến thức và công nghệ máy tính</strong>
               </label>
+              <small class="form-text text-danger"><?= $this->register_error['confirm'] ?></small>
             </div>
         </div>
       </div>

@@ -52,6 +52,14 @@ class vendor_validator_util {
     return ['status' => false, 'message' => "Value of this field should in " . implode(", ", $arr)];
   }
 
+  public function alpha_numField($value) {
+    return $this->regexField($value, '/[^a-zA-Z0-9]+/');
+  }
+
+  public function alphaField($value) {
+    return $this->regexField($value, '/[^a-zA-Z]+/');
+  }
+
   public function validate($rules, $data) {
     $res = ['status' => true, 'message' => []];
 

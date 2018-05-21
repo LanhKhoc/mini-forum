@@ -21,7 +21,7 @@ const CkEditor = function() {
     files: _files,
     init() {
       CKEDITOR.replace('ckeditor', {
-        height: '400px',
+        // height: '400px',
         image_previewText: ' ',
         // filebrowserBrowseUrl: '/browser/browse.php',
         // filebrowserImageUploadUrl: `http://${this.host}:${this.port}${this.rootREL}/?route=thread/image`

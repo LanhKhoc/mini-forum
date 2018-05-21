@@ -9,6 +9,15 @@
   &__title {
     padding: 3px;
     background-color: palette(white, xx-dark);
+
+    &--lighter {
+      background-color: palette(white, dark);
+    }
+
+    &--dark {
+      background-color: palette(black, light);
+      color: palette(white);
+    }
   }
 
   &__content {

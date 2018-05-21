@@ -1,0 +1,27 @@
+.c-card {
+  &__avatar {
+    width: 80%;
+  }
+
+  &__username {
+    margin-top: 0;
+  }
+
+  &__info {
+    @include clearfix();
+
+    & + & { margin-top: 5px; }
+    background-color: palette(white);
+    border-radius: 5px;
+    border: 1px solid palette(white, xx-dark);
+    padding: 3px 7px;
+  }
+    &__info-title {
+      float: left;
+      color: palette(danger);
+    }
+
+    &__info-content {
+      float: right;
+    }
+}
