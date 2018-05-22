@@ -1,4 +1,4 @@
-<?php session_start();
+<?php session_start(); if (!defined('APPLICATION')) die ('Bad requested!');
 
 class user_controller extends vendor_controller {
 	public function edit() {

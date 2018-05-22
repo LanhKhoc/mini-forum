@@ -1,4 +1,4 @@
-<?php
+<?php session_start();
 
 /** This file is part of KCFinder project
   *
@@ -22,8 +22,8 @@ $_CONFIG = array(
 // GENERAL SETTINGS
 
     'disabled' => false,
-    // 'uploadURL' => "upload/" . $_SESSION['user_info']['id'],
-    'uploadURL' => "upload/",
+    'uploadURL' => "upload/" . $_SESSION['user_info']['id'],
+    // 'uploadURL' => "upload/",
     'uploadDir' => "",
     'theme' => "default",
 

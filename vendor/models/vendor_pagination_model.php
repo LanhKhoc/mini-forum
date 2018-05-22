@@ -28,7 +28,6 @@ class vendor_pagination_model extends vendor_model {
     return $this->conn->query($sql);
   }
 
-
   public function pagination($page = 1) {
     $this->config['total_record'] = $this->getCountRecords();
     $this->config['total_page'] = ceil($this->config['total_record'] / $this->config['limit']);

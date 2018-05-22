@@ -35,7 +35,7 @@
 
   <div class="u-clear-collapse">
     <div class="c-header__logo">
-      <a href="">
+      <a href="<?= vendor_url_util::makeURL(['controller' => 'home']) ?>">
         <img src="assets/img/front-end.png" alt="" class="c-header__logo-img">
       </a>
     </div>

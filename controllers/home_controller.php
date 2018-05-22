@@ -1,4 +1,4 @@
-<?php session_start();
+<?php session_start(); if (!defined('APPLICATION')) die ('Bad requested!');
 
 class home_controller extends vendor_controller {
   public function index() {
@@ -11,9 +11,11 @@ class home_controller extends vendor_controller {
     }
 
     $service = new home_service();
-    $data = $service->getCategoriesData();
+    $dataCategory = $service->getCategoriesData();
+    $newestThreads = $service->getNewestThreads();
 
-    $this->setProperty('data', $data);
+    $this->setProperty('data', $dataCategory);
+    $this->setProperty('newest', $newestThreads);
     $this->view();
   }
 }

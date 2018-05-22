@@ -15,15 +15,17 @@
       <div class="o-panel__heading">Nội dung của bạn</div>
       <div class="o-panel__content">
         <form action="<?= vendor_url_util::makeURL(['action' => 'store']) ?>" method="POST" class="form p-3">
+          <input type="hidden" name="idTopic" value="<?= $this->idTopic ?>" />
+          <input type="hidden" name="idUser" value="<?= $_SESSION['user_info']['id'] ?>" />
           <div class="form-group row">
             <div class="col-6">
               <label for=""><strong>Tiêu đề:</strong></label>
-              <input type="text" class="form-control" name="title" />
+              <input type="text" class="form-control" name="title" required />
             </div>
           </div>
 
           <div class="form-group">
-            <textarea name="content" id="ckeditor"></textarea>
+            <textarea name="content" id="ckeditor" required></textarea>
             <!-- <script>CKEDITOR.replace('ckeditor');</script> -->
           </div>
 

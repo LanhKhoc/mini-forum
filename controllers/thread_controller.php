@@ -1,44 +1,62 @@
-<?php
+<?php session_start(); if (!defined('APPLICATION')) die ('Bad requested!');
 
 class thread_controller extends vendor_controller {
   public function create() {
+    if (vendor_auth_controller::checkAuth() == false) {
+      header('Location: ' . vendor_url_util::makeURL(['controller' => 'register']));
+      die();
+    }
+
     $idTopic = isset($_GET['idTopic']) ? $_GET['idTopic'] : null;
     if (!$idTopic) die();
-    var_dump(IMAGETYPE_JPEG);
 
+    $this->setProperty('idTopic', $idTopic);
     $this->view();
   }
 
   public function store() {
-    vendor_common_util::print($_POST);
-    vendor_common_util::print($_FILES);
+    if($_SERVER['REQUEST_METHOD'] == 'GET') { die(); }
+    if (vendor_auth_controller::checkAuth() == false) { die(); }
+
+    $service = new thread_service();
+    $result = $service->store([
+      'topic_id' => isset($_POST['idTopic']) ? $_POST['idTopic'] : '',
+      'user_id' => isset($_POST['idUser']) ? $_POST['idUser'] : '',
+      'title' => isset($_POST['title']) ? $_POST['title'] : '',
+      'content' => isset($_POST['content']) ? $_POST['content'] : ''
+    ]);
+
+    if ($result['status'] == true) {
+      header('Location: ' . vendor_url_util::makeURL([
+        'controller' => 'thread',
+        'action' => 'show',
+        'params' => ['id' => $result['info']['last_id']]
+      ]));
+    } else {
+      header('Location: ' . vendor_url_util::makeURL(['controller' => 'home']));
+    }
   }
 
   public function show() {
-    $idThread = isset($_GET['idThread']) ? $_GET['idThread'] : null;
-    if (!$idThread) { die(); }
+    $id = isset($_GET['id']) ? $_GET['id'] : null;
+    if (!$id) { die(); }
 
-    $this->view();
-  }
+    $service = new thread_service();
+    $dataThread = $service->getThreadInfo($id);
+    $dataUser = $service->getUserInfo($id);
+    $dataComment = $service->getCommentInfo($id);
 
-  public function image() {
-    if (empty($_FILES)) die();
-
-    $files = ['image' => $_FILES['upload']];
-    $resultUpload = vendor_img_util::uploadImg($files);
-    if ($resultUpload['status']) {
-      echo json_encode([
-        'uploaded' => 1,
-        'fileName' => $resultUpload['filename'],
-        'url' => $resultUpload['url']
-      ]);
-    } else {
-      echo json_encode([
-        'uploaded' => 0,
-        "error" => [
-          "message" => $resultUpload['message']
-        ]
-      ]);
+     // NOTE: For login
+     if (empty($_SESSION['user_info'])) {
+      $this->error = isset($_SESSION['error']) ? $_SESSION['error'] : '';
+      $this->remember = isset($_SESSION['remember']) ? $_SESSION['remember'] : '';
+      unset($_SESSION['error']);
+      unset($_SESSION['remember']);
     }
+
+    $this->setProperty('thread', $dataThread);
+    $this->setProperty('user', $dataUser);
+    $this->setProperty('comment', $dataComment);
+    $this->view();
   }
 }

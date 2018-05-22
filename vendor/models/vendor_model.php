@@ -46,6 +46,7 @@ class vendor_model {
 	}
 
 	public function excute($sql) {
+		// die($sql);
 		return $this->conn->query($sql);
 	}
 
@@ -104,7 +105,13 @@ class vendor_model {
 		}
 
 		$sql = "INSERT INTO {$this->table} (" . substr($fields, 0, -1) . ") VALUES(" . substr($values, 0, -1) . ")";
-		return $this->conn->query($sql);
+		$result = $this->conn->query($sql);
+		if ($result == true) {
+			return ['status' => true, 'info' => [
+				'last_id' => $this->conn->insert_id
+			]];
+		}
+		return ['status' => false];
 	}
 
 	public function destroy($options) {

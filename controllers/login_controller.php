@@ -5,23 +5,6 @@ class login_controller extends vendor_controller {
     parent::__construct();
   }
 
-  public function index() {
-    // if (!vendor_auth_controller::checkAuth()) {
-    //   header('Location: ' . vendor_url_util::makeURL(['controller' => 'home']));
-    //   die();
-    // }
-
-    $error = isset($_SESSION['error']) ? $_SESSION['error'] : '';
-    $remember = isset($_SESSION['remember']) ? $_SESSION['remember'] : '';
-
-    unset($_SESSION['error']);
-    unset($_SESSION['remember']);
-
-    $this->setProperty('error', $error);
-    $this->setProperty('remember', $remember);
-    $this->view();
-  }
-
   public function check() {
     if($_SERVER['REQUEST_METHOD'] == 'GET') { die(); }
 

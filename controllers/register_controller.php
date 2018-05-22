@@ -1,4 +1,4 @@
-<?php session_start();
+<?php session_start(); if (!defined('APPLICATION')) die ('Bad requested!');
 
 class register_controller extends vendor_controller {
   public function index() {
@@ -45,8 +45,6 @@ class register_controller extends vendor_controller {
     ]);
 
     if ($result == true) { header('Location: ' . vendor_url_util::makeURL(['controller' => 'home'])); }
-    else {
-      header('Location: ' . vendor_url_util::makeURL(['controller' => 'register']));
-    }
+    else { header('Location: ' . vendor_url_util::makeURL(['controller' => 'register'])); }
   }
 }
