@@ -6,8 +6,9 @@ class comment_controller extends vendor_controller {
     if (vendor_auth_controller::checkAuth() == false) { die(); }
 
     $service = new comment_service();
+    // TODO: Change idTopic at view
     $result = $service->store([
-      'idTopic' => isset($_POST['idTopic']) ? $_POST['idTopic'] : null,
+      'idThread' => isset($_POST['idTopic']) ? $_POST['idTopic'] : null,
       'idUser' => isset($_POST['idUser']) ? $_POST['idUser'] : null,
       'comment' => isset($_POST['comment']) ? $_POST['comment'] : ''
     ]);

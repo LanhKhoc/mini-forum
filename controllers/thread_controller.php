@@ -20,7 +20,7 @@ class thread_controller extends vendor_controller {
 
     $service = new thread_service();
     $result = $service->store([
-      'topic_id' => isset($_POST['idTopic']) ? $_POST['idTopic'] : '',
+      'thread_id' => isset($_POST['idTopic']) ? $_POST['idTopic'] : '',
       'user_id' => isset($_POST['idUser']) ? $_POST['idUser'] : '',
       'title' => isset($_POST['title']) ? $_POST['title'] : '',
       'content' => isset($_POST['content']) ? $_POST['content'] : ''

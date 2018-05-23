@@ -11,17 +11,22 @@
     &:hover {
       border: 1px solid palette(black, light);
     }
-  }
 
-  &__link {
-    display: block;
-    padding: 3px 7px;
-    text-decoration: none !important;
+    > span {
+      cursor: default;
+      display: block;
+      padding: 3px 7px;
+    }
   }
+    &__link {
+      display: block;
+      padding: 3px 7px;
+      text-decoration: none !important;
+    }
 
-  &__current {
-    display: block;
-    color: palette(success);
-    padding: 3px 7px;
-  }
+    &__current {
+      display: block;
+      color: palette(success);
+      padding: 3px 7px;
+    }
 }

@@ -22,20 +22,58 @@
           </a>
         <?php } ?>
       </div>
-      <div class="float-right">
-        <div class="o-pagination">
+      <div class="float-right clearfix">
+        <div class="o-pagination float-right">
           <div class="o-pagination__item">
-            <a href="" class="o-pagination__link"><i class="fas fa-caret-left"></i></a>
+            <span>Trang <?= $this->topicData['page'] ?>/<?= $this->topicData['total_page'] ?></span>
           </div>
-          <div class="o-pagination__item">
-            <a href="" class="o-pagination__link">1</a>
-          </div>
-          <div class="o-pagination__item">
-            <a href="" class="o-pagination__link">2</a>
-          </div>
-          <div class="o-pagination__item">
-            <a href="" class="o-pagination__link"><i class="fas fa-caret-right"></i></a>
-          </div>
+
+          <?php if ($this->topicData['page']>1) { ?>
+            <div class="o-pagination__item">
+              <a href="<?= vendor_url_util::makeURL([
+                  'controller' => 'topic',
+                  'action' => 'show',
+                  'params' => ['id' => $this->idTopic, 'page' => $this->topicData['page'] - 1]
+                ]) ?>" class="o-pagination__link"><i class="fas fa-caret-left"></i></a>
+            </div>
+          <?php } ?>
+
+          <?php for ($i=$this->topicData['min']; $i<=$this->topicData['max']; $i++) { ?>
+            <div class="o-pagination__item">
+              <?php if ($this->topicData['page'] == $i) { ?>
+                <span class="o-pagination__current u-cursor-default"><?= $i ?></span>
+              <?php } else { ?>
+                <a href="<?= vendor_url_util::makeURL([
+                  'controller' => 'topic',
+                  'action' => 'show',
+                  'params' => ['id' => $this->idTopic, 'page' => $i]
+                ]) ?>" class="o-pagination__link"><?= $i ?></a>
+              <?php } ?>
+            </div>
+          <?php } ?>
+
+          <?php if ($this->topicData['page'] < $this->topicData['total_page']) { ?>
+            <div class="o-pagination__item">
+              <a href="<?= vendor_url_util::makeURL([
+                  'controller' => 'topic',
+                  'action' => 'show',
+                  'params' => ['id' => $this->idTopic, 'page' => $this->topicData['page'] + 1]
+                ]) ?>" class="o-pagination__link"><i class="fas fa-caret-right"></i></a>
+            </div>
+          <?php } ?>
+        </div>
+
+        <div class="u-clearfloat text-right">
+          Xếp bài từ
+          <?= $this->topicData['start'] + 1 ?>
+          tới
+          <?php
+            if ($this->topicData['total_record'] > ($this->topicData['page'] )*$this->topicData['limit']) {
+              echo ($this->topicData['start'] + 1 + $this->topicData['limit']);
+            } else echo $this->topicData['total_record'];
+            ?>
+          trên
+          <?= $this->topicData['total_record'] ?>
         </div>
       </div>
     </div>
@@ -126,31 +164,31 @@
         </div>
       </div>
       <div class="o-panel__content">
-        <?php foreach ($this->list_threads as $item) { ?>
+        <?php foreach ($this->topicData['data'] as $item) { ?>
           <div class="c-post">
             <div class="row">
               <div class="col-1 text-center">
                 <span class="c-post__icon"><i class="fas fa-envelope-square"></i></span>
               </div>
               <div class="col-6">
-                <h5 class="c-post__title"><a href="<?= vendor_url_util::makeURL(['controller' => 'thread', 'action' => 'show', 'params' => ['id' => $item['id_thread']]]) ?>"><?= $item['title'] ?></a></h5>
+                <h5 class="c-post__title"><a href="<?= vendor_url_util::makeURL(['controller' => 'thread', 'action' => 'show', 'params' => ['id' => $item['thread']['id']]]) ?>"><?= $item['thread']['title'] ?></a></h5>
                 <div>
-                  <a href="<?= $item['user']['id'] ?>"><?= $item['user']['fullname'] ?></a>,
-                  <span><?= $item['date_created'] ?></span>
+                  <a href="<?= $item['user_thread']['id'] ?>"><?= $item['user_thread']['fullname'] ?></a>,
+                  <span><?= $item['thread']['date_created'] ?></span>
                 </div>
               </div>
               <div class="col-2">
                 <div class="c-post__response">
-                  <div>Trả lời: 0</div>
-                  <div>Xem: <?= $item['views'] ?></div>
+                  <div>Trả lời: <?= $item['thread']['total_comments'] ?></div>
+                  <div>Xem: <?= $item['thread']['views'] ?></div>
                 </div>
               </div>
               <div class="col-3">
                 <div class="c-post__newest">
-                  <a href="">giangngoha</a>
+                  <a href=""><?= $item['user_comment']['fullname'] ?></a>
                 </div>
                 <div>
-                  <span>15-05-2018 08:35</span>
+                  <span><?= $item['user_comment']['date_created'] ?></span>
                 </div>
               </div>
             </div>
@@ -163,23 +201,55 @@
 </section>
 
 <section class="mt-3 mb-4">
-  <div class="container">
-    <div class="clearfix">
-      <div class="float-right">
-        <div class="o-pagination">
-          <div class="o-pagination__item">
-            <a href="" class="o-pagination__link"><i class="fas fa-caret-left"></i></a>
-          </div>
-          <div class="o-pagination__item">
-            <a href="" class="o-pagination__link">1</a>
-          </div>
-          <div class="o-pagination__item">
-            <a href="" class="o-pagination__link">2</a>
-          </div>
-          <div class="o-pagination__item">
-            <a href="" class="o-pagination__link"><i class="fas fa-caret-right"></i></a>
-          </div>
+  <div class="container clearfix">
+    <div class="float-right clearfix">
+      <div class="o-pagination float-right">
+        <div class="o-pagination__item">
+          <span>Trang <?= $this->topicData['page'] ?>/<?= $this->topicData['total_page'] ?></span>
         </div>
+
+        <?php if ($this->topicData['page']>1) { ?>
+          <div class="o-pagination__item">
+            <a href="<?= vendor_url_util::makeURL([
+                'controller' => 'topic',
+                'action' => 'show',
+                'params' => ['id' => $this->idTopic, 'page' => $this->topicData['page'] - 1]
+              ]) ?>" class="o-pagination__link"><i class="fas fa-caret-left"></i></a>
+          </div>
+        <?php } ?>
+
+        <?php for ($i=$this->topicData['min']; $i<=$this->topicData['max']; $i++) { ?>
+          <div class="o-pagination__item">
+            <?php if ($this->topicData['page'] == $i) { ?>
+              <span class="o-pagination__current u-cursor-default"><?= $i ?></span>
+            <?php } else { ?>
+              <a href="<?= vendor_url_util::makeURL([
+                'controller' => 'topic',
+                'action' => 'show',
+                'params' => ['id' => $this->idTopic, 'page' => $i]
+              ]) ?>" class="o-pagination__link"><?= $i ?></a>
+            <?php } ?>
+          </div>
+        <?php } ?>
+
+        <?php if ($this->topicData['page'] < $this->topicData['total_page']) { ?>
+          <div class="o-pagination__item">
+            <a href="<?= vendor_url_util::makeURL([
+                'controller' => 'topic',
+                'action' => 'show',
+                'params' => ['id' => $this->idTopic, 'page' => $this->topicData['page'] + 1]
+              ]) ?>" class="o-pagination__link"><i class="fas fa-caret-right"></i></a>
+          </div>
+        <?php } ?>
+      </div>
+
+      <div class="u-clearfloat text-right">
+        Xếp bài từ
+        <?= $this->topicData['start'] + 1 ?>
+        tới
+        <?= ($this->topicData['start'] + 1 + $this->topicData['limit']) ?>
+        trên
+        <?= $this->topicData['total_record'] ?>
       </div>
     </div>
   </div>

@@ -92,7 +92,7 @@ class thread_service {
 
   public function store($data) {
     $rules = [
-      'topic_id' => 'number',
+      'thread_id' => 'number',
       'user_id' => 'number',
       'title' => 'required',
       'content' => 'required'

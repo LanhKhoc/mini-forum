@@ -20,7 +20,7 @@ class comment_model extends vendor_model {
       LEFT JOIN (
         SELECT count(user_id) as total, user_id FROM `threads` GROUP BY user_id
       ) tmp ON tmp.user_id = `{$this->table}`.user_id
-      WHERE `{$this->table}`.topic_id = {$id}
+      WHERE `{$this->table}`.thread_id = {$id}
     ");
   }
 }

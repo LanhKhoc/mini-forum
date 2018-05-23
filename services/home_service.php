@@ -15,7 +15,7 @@ class home_service {
       FROM categories c
       INNER JOIN topics tp ON c.id = tp.category_id
       INNER JOIN threads th1 ON tp.id = th1.topic_id
-      INNER JOIN users u ON (u.id = th1.user_id)
+      INNER JOIN users u ON u.id = th1.user_id
       LEFT OUTER JOIN threads th2
       ON (tp.id = th2.topic_id AND (
           th1.date_created < th2.date_created
@@ -42,6 +42,7 @@ class home_service {
             'id' => $row['user_id'],
             'fullname' => $row['fullname'],
           ],
+          'id' => $row['id_thread'],
           'title' => $row['title'],
           'date_created' => $row['date_created']
         ]

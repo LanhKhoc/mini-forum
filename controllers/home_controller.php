@@ -14,6 +14,9 @@ class home_controller extends vendor_controller {
     $dataCategory = $service->getCategoriesData();
     $newestThreads = $service->getNewestThreads();
 
+    $breadcum = [];
+
+    $this->setProperty('breadcum', $breadcum);
     $this->setProperty('data', $dataCategory);
     $this->setProperty('newest', $newestThreads);
     $this->view();

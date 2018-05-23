@@ -5,57 +5,53 @@ class topic_service {
     'id' => 'number'
   ];
 
-  public function getCategoryInfo($id) {
+  public function getTopicName($idTopic) {
     $validator = new vendor_validator_util();
-    $resultValidate = $validator->validate($this->rules, ['id' => $id]);
+    $resultValidate = $validator->validate($this->rules, ['id' => $idTopic]);
     if ($resultValidate['status'] == false) { die(); }
 
     $topicModel = new topic_model();
     $result = $topicModel->excute("
-      SELECT categories.id, categories.name, categories.description
+      SELECT *
       FROM topics
-      INNER JOIN categories ON topics.category_id = categories.id
-      WHERE topics.id = {$id}
+      WHERE id = {$idTopic}
     ")->fetch_assoc();
 
     return $result;
   }
 
-  public function getTopicDatas($id) {
+  public function getTopicDatas($id, $page) {
     $validator = new vendor_validator_util();
     $resultValidate = $validator->validate($this->rules, ['id' => $id]);
     if ($resultValidate['status'] == false) { die(); }
 
+    // Threads, User, Comment
     $postModel = new post_model();
-
-    $threadModel = new thread_model();
+    $resultDB = $postModel->getPostsInfo($id, $page);
     $data = [];
-    $fields = '
-      th1.id as id_thread, th1.title, th1.content, th1.date_created, th1.views,
-      u1.id as id_user, u1.fullname
-    ';
-    $resultDB = $threadModel->excute("
-      SELECT {$fields}
-      FROM threads th1
-      INNER JOIN users u1 ON u1.id = th1.user_id
-      WHERE th1.topic_id = '{$id}'
-    ");
 
-    while ($row = $resultDB->fetch_assoc()) {
+    while ($row = $resultDB['data']->fetch_assoc()) {
       $data[] = [
-        'id_thread' => $row['id_thread'],
-        'title' => $row['title'],
-        'content' => $row['content'],
-        'date_created' => $row['date_created'],
-        'views' => $row['views'],
-        'user' => [
-          'id' => $row['id_user'],
-          'fullname' => $row['fullname']
+        'thread' => [
+          'id' => $row['id_thread'],
+          'title' => $row['title'],
+          'date_created' => $row['date_created'],
+          'total_comments' => $row['total_comments'] == null ? 0 : $row['total_comments'],
+          'views' => $row['views']
+        ],
+        'user_thread' => [
+          'id' => $row['id_user_thread'],
+          'fullname' => $row['fullname_user_thread'],
+        ],
+        'user_comment' => [
+          'id' => $row['id_user_comment'],
+          'fullname' => $row['fullname_user_comment'],
+          'date_created' => $row['date_comment']
         ]
       ];
     }
 
-    // vendor_common_util::print($data);
-    return $data;
+    $resultDB['data'] = $data;
+    return $resultDB;
   }
 }

@@ -2,7 +2,7 @@
 
 class comment_service {
   private $rules = [
-    'idTopic' => 'number',
+    'idThread' => 'number',
     'idUser' => 'number',
     'comment' => 'required'
   ];
@@ -14,7 +14,7 @@ class comment_service {
 
     $commentModel = new comment_model();
     return $commentModel->store([
-      'topic_id' => $data['idTopic'],
+      'thread_id' => $data['idThread'],
       'user_id' => $data['idUser'],
       'content' => $data['comment'],
     ]);

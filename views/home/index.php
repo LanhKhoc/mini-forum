@@ -71,7 +71,11 @@
 
                 <div class="col-3">
                   <div class="c-topic__newest">
-                    <a href=""><?= $topic['newest_thread']['title'] ?></a>
+                    <a href="<?= vendor_url_util::makeURL([
+                      'controller' => 'thread',
+                      'action' => 'show',
+                      'params' => ['id' => $topic['newest_thread']['id']]
+                    ]) ?>"><?= $topic['newest_thread']['title'] ?></a>
                   </div>
                   <div>by <a href="<?= $topic['newest_thread']['user']['id'] ?>"><?= $topic['newest_thread']['user']['fullname'] ?></a></div>
                   <div>

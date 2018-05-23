@@ -2,12 +2,13 @@
 
 class topic_controller extends vendor_controller {
   public function show() {
-    $id = isset($_GET['id']) ? $_GET['id'] : null;
-    if (!$id) die();
+    $idTopic = isset($_GET['id']) ? $_GET['id'] : null;
+    $page = isset($_GET['page']) ? $_GET['page'] : 1;
+    if (!$idTopic) die();
 
     $service = new topic_service();
-    $list_threads = $service->getTopicDatas($id);
-    $category = $service->getCategoryInfo($id);
+    $topicData = $service->getTopicDatas($idTopic, $page);
+    $category = $service->getTopicName($idTopic);
 
     // NOTE: For login
     if (empty($_SESSION['user_info'])) {
@@ -17,8 +18,15 @@ class topic_controller extends vendor_controller {
       unset($_SESSION['remember']);
     }
 
-    $this->setProperty('idTopic', $id);
-    $this->setProperty('list_threads', $list_threads);
+    $breadcum = [
+      ['name' => $category['name'], 'link' => vendor_url_util::makeURL([
+        'controller' => 'home'
+      ])]
+    ];
+
+    $this->setProperty('breadcum', $breadcum);
+    $this->setProperty('idTopic', $idTopic);
+    $this->setProperty('topicData', $topicData);
     $this->setProperty('category', $category);
     $this->view();
   }
